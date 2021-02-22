@@ -1,2 +1,5 @@
+jax
+jaxlib==0.1.61+cuda110
 jupyterlab-nvdashboard # server-side component; client-side component installed in postBuild
 
+--find-links https://storage.googleapis.com/jax-releases/jax_releases.html

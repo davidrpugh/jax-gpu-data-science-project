@@ -5,7 +5,8 @@ channels:
   - defaults
 
 dependencies:
-  - cudatoolkit
+  - cudatoolkit=11.0
+  - cudnn=8.0
   - jupyterlab<3.0
   - jupyterlab-git
   - matplotlib
