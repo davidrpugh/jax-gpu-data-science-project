@@ -1,0 +1,17 @@
+name: null
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - cudatoolkit
+  - jupyterlab<3.0
+  - jupyterlab-git
+  - matplotlib
+  - pandas
+  - pip
+  - pip:
+    - -r file:requirements.txt
+  - python
+  

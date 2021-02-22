@@ -1,0 +1,2 @@
+jupyterlab-nvdashboard # server-side component; client-side component installed in postBuild
+
