@@ -1,5 +1,6 @@
+pandas-bokeh
 jax
-jaxlib==0.1.61+cuda110
-jupyterlab-nvdashboard # server-side component; client-side component installed in postBuild
+jaxlib==0.1.65+cuda112
 
 --find-links https://storage.googleapis.com/jax-releases/jax_releases.html
+

@@ -5,14 +5,46 @@ channels:
   - defaults
 
 dependencies:
-  - cudatoolkit=11.0
-  - cudnn=8.0
-  - jupyterlab<3.0
+  - bokeh
+  - cudnn
+  - cudatoolkit=11.2
+  - cupy
+  - dask
+  - dask-ml
+  - dask-labextension
+  - datashader
+  - featuretools
+  - gh
+  - git
+  - h5py
+  - holoviews
+  - hvplot
+  - imbalanced-learn
+  - jupyterlab
   - jupyterlab-git
+  - jupyterlab-lsp
+  - jupyterlab-nvdashboard
+  - lightgbm
   - matplotlib
+  - nccl
+  - numba
+  - numpy
+  - optuna
   - pandas
+  - panel
   - pip
   - pip:
     - -r file:requirements.txt
-  - python
-  
+  - pyarrow
+  - python=3.8
+  - python-language-server
+  - pyviz_comms
+  - scikit-learn
+  - scipy
+  - shap
+  - tensorboard
+  - umap-learn
+  - wandb
+  - xarray
+  - xeus-python
+  - xgboost
