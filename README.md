@@ -1,6 +1,6 @@
-# python-gpu-data-science-project
+# jax-gpu-data-science-project
 
-Repository containing scaffolding for a Python 3-based data science project with GPU acceleration. 
+Repository containing scaffolding for a Python 3-based data science project with GPU acceleration using the [Jax](https://jax.readthedocs.io/en/latest/index.html) ecosystem. 
 
 ## Creating a new project from this template
 
@@ -21,24 +21,16 @@ Project organization is based on ideas from [_Good Enough Practices for Scientif
 9. Put project source code in the `src` directory.
 10. Name all files to reflect their content or function.
 
-## Using Conda
+## Building the Conda environment
 
-### Creating the Conda environment
-
-As this template repo is designed to help users get set up with a GPU-accelerated Python data 
-science project the `environment.yml` file already includes key NVIDIA CUDA components in 
-particular versions 10.1 of both `cudatoolkit` and `cupti`. Currently CUDA 10.1 is version 
-supported by the major machine learning and deep learning libraries such as RAPIDS, PyTorch, 
-TensorFlow, etc. Note that the `nvcc` compiler is *not* included in the `cudatoolkit` pacakge 
-(if you need `nvcc` then consider using the `cudatoolkit-dev` package instead).
-
-After adding any necessary dependencies for your project to the Conda `environment.yml` file 
-(or the `requirements.txt` file), you can create the environment in a sub-directory of your 
-project directory by running the following command.
+After adding any necessary dependencies that should be downloaded via `conda` to the 
+`environment.yml` file and any dependencies that should be downloaded via `pip` to the 
+`requirements.txt` file you create the Conda environment in a sub-directory `./env`of your project 
+directory by running the following commands.
 
 ```bash
-ENV_PREFIX=$PWD/env
-conda env create --prefix $ENV_PREFIX --file environment.yml --force
+export ENV_PREFIX=$PWD/env
+mamba env create --prefix $ENV_PREFIX --file environment.yml --force
 ```
 
 Once the new environment has been created you can activate the environment with the following 
@@ -51,22 +43,24 @@ conda activate $ENV_PREFIX
 Note that the `ENV_PREFIX` directory is *not* under version control as it can always be re-created as 
 necessary.
 
-If you wish to use any JupyterLab extensions included in the `environment.yml` and `requirements.txt` 
-files then you need to activate the environment and rebuild the JupyterLab application using the 
-following commands to source the `postBuild` script.
-
-```bash
-conda activate $ENV_PREFIX # optional if environment already active
-. postBuild
-```
-
 For your convenience these commands have been combined in a shell script `./bin/create-conda-env.sh`. 
 Running the shell script will create the Conda environment, activate the Conda environment, and build 
-JupyterLab with any additional extensions. The script should be run from the project root directory as 
-follows. 
+JupyterLab with any additional extensions. The script should be run from the project root directory 
+as follows. 
 
 ```bash
 ./bin/create-conda-env.sh
+```
+
+### Ibex
+
+The most efficient way to build Conda environments on Ibex is to launch the environment creation script 
+as a job on the debug partition via Slurm. For your convenience a Slurm job script 
+`./bin/create-conda-env.sbatch` is included. The script should be run from the project root directory 
+as follows.
+
+```bash
+sbatch ./bin/create-conda-env.sbatch
 ```
 
 ### Listing the full contents of the Conda environment
@@ -85,7 +79,42 @@ after the environment has already been created, then you can re-create the envir
 following command.
 
 ```bash
-conda env create --prefix $ENV_PREFIX --file environment.yml --force
+$ mamba env create --prefix $ENV_PREFIX --file environment.yml --force
+```
+
+## Installing the NVIDIA CUDA Compiler (NVCC) (Optional)
+
+Installing the NVIDIA CUDA Toolkit manually is only required if your project needs to use the `nvcc` compiler. 
+Note that even if you have not written any custom CUDA code that needs to be compiled with `nvcc`, if your project 
+uses packages that include custom CUDA extensions for PyTorch then you will need `nvcc` installed in order to build these packages.
+
+If you don't need `nvcc`, then you can skip this section as `conda` will install a `cudatoolkit` package 
+which includes all the necessary runtime CUDA dependencies (but not the `nvcc` compiler).
+
+### Workstation
+
+You will need to have the [appropriate version](https://developer.nvidia.com/cuda-toolkit-archive) 
+of the NVIDIA CUDA Toolkit installed on your workstation. If using the most recent versionf of PyTorch, then you 
+should install [NVIDIA CUDA Toolkit 11.1](https://developer.nvidia.com/cuda-11.2.2-download-archive) 
+[(documentation)](https://docs.nvidia.com/cuda/archive/11.2.2/).
+
+After installing the appropriate version of the NVIDIA CUDA Toolkit you will need to set the 
+following environment variables.
+
+```bash
+$ export CUDA_HOME=/usr/local/cuda-11.2.2
+$ export PATH=$CUDA_HOME/bin:$PATH
+$ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+```
+
+### Ibex
+
+Ibex users do not neet to install NVIDIA CUDA Toolkit as the relevant versions have already been 
+made available on Ibex by the Ibex Systems team. Users simply need to load the appropriate version 
+using the `module` tool. 
+
+```bash
+$ module load cuda/11.2.2
 ```
 
 ## Using Docker
