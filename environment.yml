@@ -7,7 +7,8 @@ channels:
 dependencies:
   - bokeh
   - cudnn
-  - cudatoolkit=11.2
+  - cudatoolkit=11.1
+  - cudatoolkit-dev=11.1
   - cupy
   - dask
   - dask-ml
@@ -16,6 +17,7 @@ dependencies:
   - featuretools
   - gh
   - git
+  - gxx_linux-64
   - h5py
   - holoviews
   - hvplot
