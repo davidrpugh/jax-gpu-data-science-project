@@ -39,6 +39,7 @@ dependencies:
     - -r requirements.txt
   - pyarrow
   - python=3.8
+  - python-flatbuffers
   - python-language-server
   - pyviz_comms
   - scikit-learn
