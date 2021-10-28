@@ -6,15 +6,16 @@ channels:
 
 dependencies:
   - bokeh
-  - cudnn
-  - cudatoolkit=11.1
-  - cudatoolkit-dev=11.1
+  - cudnn=8.2
+  - cudatoolkit=11.2
+  - cudatoolkit-dev=11.2
   - cupy
   - dask
   - dask-ml
   - dask-labextension
   - datashader
   - featuretools
+  - gfortran_linux-64
   - gh
   - git
   - gxx_linux-64
@@ -39,7 +40,6 @@ dependencies:
     - -r requirements.txt
   - pyarrow
   - python=3.8
-  - python-flatbuffers
   - python-language-server
   - pyviz_comms
   - scikit-learn
